@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 export default ({onPress}) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.button}>
-      <Text style={styles.text}>+ Add Transcations</Text>
+      <Text style={styles.text}> + Add Transcations </Text>
     </TouchableOpacity>
   );
 };

@@ -47,10 +47,7 @@ export default function App() {
     <View style={styles.appBar}>
       <Header title="Expense Tracker" />
       <View style={styles.buttonContainer}>
-        <Button
-          text="AC"
-          size="lightgrey"
-          onPress={() => alert('yo hoo')}></Button>
+        <Button onPress={() => alert('yo hoo')}></Button>
       </View>
     </View>
   );
