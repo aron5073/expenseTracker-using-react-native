@@ -1,5 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, Dimensions} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+  Button,
+} from 'react-native';
 
 const screens = Dimensions.get('window');
 
@@ -7,20 +13,23 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    height: '6%',
-    marginLeft: '30%',
-    marginRight: '30%',
+    height: '8%',
+    width: '60%',
     backgroundColor: 'lightgrey',
     borderColor: '#000',
-    borderRadius: 20,
-    // marginTop: screens.height - 200,
+    borderRadius: 30,
+  },
+  text: {
+    fontStyle: 'normal',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });
 
-export default () => {
+export default ({onPress}) => {
   return (
-    <TouchableOpacity style={styles.button}>
-      <Text style={styles.text}>Add Transcations</Text>
+    <TouchableOpacity onPress={onPress} style={styles.button}>
+      <Text style={styles.text}>+ Add Transcations</Text>
     </TouchableOpacity>
   );
 };
