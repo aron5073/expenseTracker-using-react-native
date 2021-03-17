@@ -18,5 +18,30 @@ import {
   View,
 } from 'react-native';
 
-const styles = StyleSheet.create({});
-export default class App extends React.Component {}
+import Header from './components/Header';
+import Button from './components/Button';
+
+const styles = StyleSheet.create({
+  appBar: {
+    flex: 1,
+  },
+  buttonContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+    justifyContent: 'flex-end',
+    paddingBottom: '10%',
+  },
+});
+export default function App() {
+  return (
+    <View style={styles.appBar}>
+      <Header title="Expense Tracker" />
+      <View style={styles.buttonContainer}>
+        <Button
+          text="AC"
+          size="lightgrey"
+          onPress={() => alert('yo hoo')}></Button>
+      </View>
+    </View>
+  );
+}
