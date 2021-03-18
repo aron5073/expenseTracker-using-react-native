@@ -1,5 +1,5 @@
 {
-  "name": "expensetracker",
+  "name": "expensetracker1",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -10,12 +10,15 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@react-native-community/cli": "^5.0.1-alpha.2",
+    "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/native": "^5.9.3",
     "@react-navigation/stack": "^5.14.3",
-    "react": "16.14.0",
+    "react": "17.0.1",
     "react-native": "0.64.0",
-    "react-timer-mixin": "^0.13.4"
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-reanimated": "^2.0.0",
+    "react-native-safe-area-context": "^3.2.0",
+    "react-native-screens": "^2.18.1"
   },
   "devDependencies": {
     "@babel/core": "^7.13.10",
@@ -29,17 +32,5 @@
   },
   "jest": {
     "preset": "react-native"
-  },
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aron5073/expenseTracker-using-react-native.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/aron5073/expenseTracker-using-react-native/issues"
-  },
-  "homepage": "https://github.com/aron5073/expenseTracker-using-react-native#readme",
-  "description": ""
+  }
 }

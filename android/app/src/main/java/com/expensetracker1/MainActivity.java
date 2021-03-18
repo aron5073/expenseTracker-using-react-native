@@ -1,4 +1,4 @@
-package com.expensetracker;
+package com.expensetracker1;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "expenseTracker";
+    return "expensetracker1";
   }
 }
