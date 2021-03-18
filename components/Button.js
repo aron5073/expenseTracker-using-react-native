@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     height: '8%',
     paddingLeft: '10%',
     paddingRight: '10%',
-    backgroundColor: 'lightgrey',
+    backgroundColor: 'black',
     borderColor: '#000',
     borderRadius: 30,
   },
@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontSize: 20,
     fontWeight: 'bold',
+    color: 'white',
   },
 });
 

@@ -7,28 +7,15 @@
  */
 
 import React from 'react';
-
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 
 //components
 import Header from './components/Header';
 import Button from './components/Button';
-// import addTranscation from './components/addTranscations';
 
-// //navigation
-// const Navigator = createStackNavigator({
-//   addTranscation: {screen: addTranscation},
-// });
+const stack = createStackNavigator({});
 
 const styles = StyleSheet.create({
   appBar: {
@@ -36,7 +23,7 @@ const styles = StyleSheet.create({
   },
   Container: {
     height: '100%',
-    paddingTop: '18%',
+    paddingTop: '3%',
   },
   listView: {
     height: '100%',
@@ -44,14 +31,22 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   scrool: {
-    height: '70%',
-    width: '100%',
-    backgroundColor: 'white',
+    borderColor: '#000',
+
+    borderRadius: 20,
+    borderColor: 'black',
+    height: '80%',
+    width: '95%',
+    backgroundColor: 'lightgrey',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: '2.5%',
+
+    // paddingTop: '5%',
   },
 });
-export default function App() {
+
+function Home() {
   return (
     <View style={styles.appBar}>
       <Header title="Expense Tracker" />
@@ -63,64 +58,24 @@ export default function App() {
             <Text>yo hoo</Text>
             <Text>yo hoo</Text>
             <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
           </ScrollView>
         </View>
 
         <View style={styles.Container}>
-          <Button onPress={() => alert('yo hoo')}></Button>
+          <Button onPress={() => alert('yo hoo')}> </Button>
         </View>
       </View>
     </View>
   );
 }
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="home" component={Home()} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+export default App();
