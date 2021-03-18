@@ -34,20 +34,92 @@ const styles = StyleSheet.create({
   appBar: {
     flex: 1,
   },
-  buttonContainer: {
-    flex: 1,
-    backgroundColor: 'white',
-    justifyContent: 'flex-end',
-    paddingBottom: '10%',
+  Container: {
+    height: '100%',
+    paddingTop: '18%',
+  },
+  listView: {
+    height: '100%',
     alignItems: 'center',
+    backgroundColor: 'white',
+  },
+  scrool: {
+    height: '70%',
+    width: '100%',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 export default function App() {
   return (
     <View style={styles.appBar}>
       <Header title="Expense Tracker" />
-      <View style={styles.buttonContainer}>
-        <Button onPress={() => alert('yo hoo')}></Button>
+      <View style={styles.listView}>
+        <View style={styles.scrool}>
+          <ScrollView>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+            <Text>yo hoo</Text>
+          </ScrollView>
+        </View>
+
+        <View style={styles.Container}>
+          <Button onPress={() => alert('yo hoo')}></Button>
+        </View>
       </View>
     </View>
   );
