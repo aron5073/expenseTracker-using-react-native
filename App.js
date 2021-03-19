@@ -1,6 +1,7 @@
 // In App.js in a new project
 
 import * as React from 'react';
+import {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -95,20 +96,38 @@ const styles = StyleSheet.create({
   },
 });
 
-function handle() {
-  alert('yo ho');
-}
-function HomeScreen({navigation}) {
+function HomeScreen({navigation, route}) {
+  let [list, setList] = useState([]);
+
+  if (route && route.params) {
+    const {amount, description} = route.params;
+    let item = {
+      amount: amount,
+      description: description,
+    };
+
+    let newArray = [...list, item];
+
+    route.params = null;
+    setList(newArray);
+    // if (list.length != newArray.length) {
+
+    // }
+  }
+
   return (
     <View style={styles.bodyContainer}>
       <View style={styles.listView}>
         <View style={styles.scrool}>
           <ScrollView>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
-            <Text>yo hoo</Text>
+            {list
+              ? list.map((item, index) => (
+                  <View key={index}>
+                    <Text>{item.amount}</Text>
+                    <Text>{item.description}</Text>
+                  </View>
+                ))
+              : null}
           </ScrollView>
         </View>
 
@@ -120,7 +139,10 @@ function HomeScreen({navigation}) {
   );
 }
 
-function DetailsScreen() {
+function DetailsScreen({navigation}) {
+  const [amount, setAmount] = useState(0);
+  const [description, setDescription] = useState(0);
+
   return (
     <View style={styles.listView}>
       <View style={styles.scrool}>
@@ -129,12 +151,25 @@ function DetailsScreen() {
           placeholder="Amount"
           style={styles.input}
           keyboardType="numeric"
+          onChangeText={value => setAmount(value)}
         />
         <Text style={styles.inputheading}>Description </Text>
 
-        <TextInput placeholder="Description" style={styles.input} />
+        <TextInput
+          multiline
+          placeholder="Description"
+          style={styles.input}
+          onChangeText={value => setDescription(value)}
+        />
         <View style={styles.formbuttonwrap}>
-          <TouchableOpacity style={styles.formbutton} onPress={() => handle()}>
+          <TouchableOpacity
+            style={styles.formbutton}
+            onPress={() =>
+              navigation.navigate('Expense Tracker', {
+                amount: amount,
+                description: description,
+              })
+            }>
             <Text style={styles.formbuttontext}> Save </Text>
           </TouchableOpacity>
 
