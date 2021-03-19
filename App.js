@@ -1,13 +1,26 @@
 // In App.js in a new project
 
 import * as React from 'react';
-import {View, Text, Button, StyleSheet, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TextInput,
+  Button,
+  Dimensions,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 //components
 
 import Buttons from './components/Button';
+
+const screens = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   bodyContainer: {
@@ -18,7 +31,7 @@ const styles = StyleSheet.create({
     paddingTop: '3%',
   },
   listView: {
-    height: '100%',
+    height: screens.height,
     alignItems: 'center',
     backgroundColor: 'white',
   },
@@ -30,8 +43,8 @@ const styles = StyleSheet.create({
     height: '80%',
     width: '95%',
     backgroundColor: 'lightgrey',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
     marginTop: '2.5%',
 
     // paddingTop: '5%',
@@ -47,8 +60,44 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     fontWeight: 'bold',
   },
+  input: {
+    borderColor: '#000',
+    borderWidth: 1,
+    borderRadius: 5,
+    margin: 15,
+  },
+  inputheading: {
+    margin: 15,
+  },
+  formbuttonwrap: {
+    flexDirection: 'row',
+    flex: 1,
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    marginTop: 15,
+  },
+  formbutton: {
+    borderColor: '#000',
+    width: screens.width / 2 - 50,
+    height: '15%',
+    borderRadius: 35,
+    backgroundColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  formbuttontext: {
+    color: '#fff',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
 });
 
+function handle() {
+  alert('yo ho');
+}
 function HomeScreen({navigation}) {
   return (
     <View style={styles.bodyContainer}>
@@ -70,10 +119,30 @@ function HomeScreen({navigation}) {
     </View>
   );
 }
+
 function DetailsScreen() {
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Detail Screen</Text>
+    <View style={styles.listView}>
+      <View style={styles.scrool}>
+        <Text style={styles.inputheading}>Amount</Text>
+        <TextInput
+          placeholder="Amount"
+          style={styles.input}
+          keyboardType="numeric"
+        />
+        <Text style={styles.inputheading}>Description </Text>
+
+        <TextInput placeholder="Description" style={styles.input} />
+        <View style={styles.formbuttonwrap}>
+          <TouchableOpacity style={styles.formbutton} onPress={() => handle()}>
+            <Text style={styles.formbuttontext}> Save </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.formbutton}>
+            <Text style={styles.formbuttontext}> Clear </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 }
