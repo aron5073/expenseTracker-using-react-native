@@ -12,6 +12,7 @@ import {
   Dimensions,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Picker,
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -94,25 +95,52 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
+  sizebox: {
+    padding: 8,
+  },
 });
 
 function HomeScreen({navigation, route}) {
   let [list, setList] = useState([]);
-
+  let rem_balance;
+  if (rem_balance == null) {
+    rem_balance = 0;
+  }
   if (route && route.params) {
-    const {amount, description} = route.params;
+    const {amount, description, type, balance} = route.params;
     let item = {
       amount: amount,
       description: description,
+      type: type,
+      balance: balance,
     };
 
-    let newArray = [...list, item];
+    let newarramountay = [...list, item];
 
     route.params = null;
-    setList(newArray);
-    // if (list.length != newArray.length) {
+    setList(newarramountay);
+    // if (list.length != newarramountay.length) {
 
     // }
+  }
+  console.log(list);
+  let arramount = [];
+  let arrtype = [];
+  for (var k in list) {
+    arramount.push(list[k].amount);
+    arrtype.push(list[k].type);
+  }
+  console.log(arramount);
+  for (var i = 0; i < arramount.length; i++) {
+    if (arrtype[i] === 'Credit') {
+      rem_balance = rem_balance + parseInt(arramount[i]);
+      console.log(rem_balance);
+    } else {
+      rem_balance = rem_balance - parseInt(arramount[i]);
+    }
+  }
+  function deduct() {
+    rem_balance = rem_balance - arramount[arramount.length - 1];
   }
 
   return (
@@ -123,29 +151,44 @@ function HomeScreen({navigation, route}) {
             {list
               ? list.map((item, index) => (
                   <View key={index}>
-                    <Text>{item.amount}</Text>
-                    <Text>{item.description}</Text>
+                    <Text>Amount : {arramount[index]}</Text>
+                    <Text>Description : {item.description}</Text>
+                    <Text>Type : {item.type}</Text>
+                    <View style={styles.sizebox}></View>
                   </View>
                 ))
               : null}
+            <Text>Balance : {rem_balance}</Text>
           </ScrollView>
+          <View style={styles.sizebox}></View>
         </View>
 
         <View style={styles.buttonContainer}>
-          <Buttons onPress={() => navigation.navigate('Add Transcations')} />
+          <Buttons
+            onPress={() => {
+              navigation.navigate('Add Transcations');
+            }}
+          />
         </View>
       </View>
     </View>
   );
 }
 
-function DetailsScreen({navigation}) {
+function DetailsScreen({navigation, route}) {
   const [amount, setAmount] = useState(0);
   const [description, setDescription] = useState(0);
+  const [type, setType] = useState(0);
+  const [balance, setBalance] = useState(0);
 
   return (
     <View style={styles.listView}>
       <View style={styles.scrool}>
+        <Picker onValueChange={value => setType(value)}>
+          <Picker.Item label="Select a Option" value="0"></Picker.Item>
+          <Picker.Item label="Debit" value="Debit"></Picker.Item>
+          <Picker.Item label="Credit" value="Credit"></Picker.Item>
+        </Picker>
         <Text style={styles.inputheading}>Amount</Text>
         <TextInput
           placeholder="Amount"
@@ -168,6 +211,8 @@ function DetailsScreen({navigation}) {
               navigation.navigate('Expense Tracker', {
                 amount: amount,
                 description: description,
+                type: type,
+                balance: balance,
               })
             }>
             <Text style={styles.formbuttontext}> Save </Text>
