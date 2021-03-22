@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
   scrool: {
     borderColor: '#000',
 
+    //justifyContent: 'center',
     borderRadius: 20,
     borderColor: 'black',
     height: '80%',
@@ -98,6 +99,14 @@ const styles = StyleSheet.create({
   sizebox: {
     padding: 8,
   },
+  mainbalance: {
+    fontWeight: 'bold',
+    fontStyle: 'italic',
+    fontSize: 20,
+  },
+  cont: {
+    alignItems: 'center',
+  },
 });
 
 function HomeScreen({navigation, route}) {
@@ -107,12 +116,21 @@ function HomeScreen({navigation, route}) {
     rem_balance = 0;
   }
   if (route && route.params) {
-    const {amount, description, type, balance} = route.params;
+    const {
+      amount,
+      description,
+      type,
+      datesday,
+      datesmonth,
+      datesyear,
+    } = route.params;
     let item = {
       amount: amount,
       description: description,
       type: type,
-      balance: balance,
+      datesday: datesday,
+      datesmonth: parseInt(datesmonth) + 1,
+      datesyear: datesyear,
     };
 
     let newarramountay = [...list, item];
@@ -137,29 +155,41 @@ function HomeScreen({navigation, route}) {
       console.log(rem_balance);
     } else {
       rem_balance = rem_balance - parseInt(arramount[i]);
+      if (rem_balance <= 0) {
+        rem_balance = rem_balance + parseInt(arramount[i]);
+        list.pop();
+        alert('You dont have enough cash reserve  ');
+      }
     }
   }
-  function deduct() {
-    rem_balance = rem_balance - arramount[arramount.length - 1];
-  }
+  console.log(list);
 
   return (
     <View style={styles.bodyContainer}>
       <View style={styles.listView}>
         <View style={styles.scrool}>
-          <ScrollView>
-            {list
-              ? list.map((item, index) => (
-                  <View key={index}>
-                    <Text>Amount : {arramount[index]}</Text>
-                    <Text>Description : {item.description}</Text>
-                    <Text>Type : {item.type}</Text>
-                    <View style={styles.sizebox}></View>
-                  </View>
-                ))
-              : null}
-            <Text>Balance : {rem_balance}</Text>
-          </ScrollView>
+          <View style={styles.cont}>
+            <ScrollView>
+              <View style={styles.sizebox}></View>
+              <Text style={styles.mainbalance}>Balance : {rem_balance}</Text>
+              <View style={styles.sizebox}></View>
+              {list
+                ? list.reverse().map((item, index) => (
+                    <View key={index}>
+                      <Text>Amount : {arramount[index]}</Text>
+                      <Text>Description : {item.description}</Text>
+                      <Text>Type : {item.type}</Text>
+                      <Text>
+                        Date : {item.datesday} - {item.datesmonth} -{' '}
+                        {item.datesyear}
+                      </Text>
+                      <View style={styles.sizebox}></View>
+                    </View>
+                  ))
+                : null}
+            </ScrollView>
+          </View>
+
           <View style={styles.sizebox}></View>
         </View>
 
@@ -176,10 +206,18 @@ function HomeScreen({navigation, route}) {
 }
 
 function DetailsScreen({navigation, route}) {
+  var date = new Date().getDate(); //Current Date
+  var month = new Date().getMonth() + 1; //Current Month
+  var year = new Date().getFullYear(); //Current Year
+  var datemonthyear = date + '-' + month + '-' + year;
+  datemonthyear.toLocaleString();
+
   const [amount, setAmount] = useState(0);
   const [description, setDescription] = useState(0);
   const [type, setType] = useState(0);
-  const [balance, setBalance] = useState(0);
+  const [dates, setdate] = useState(0);
+  console.log(datemonthyear);
+  datemonthyear => setdate(datemonthyear);
 
   return (
     <View style={styles.listView}>
@@ -207,14 +245,22 @@ function DetailsScreen({navigation, route}) {
         <View style={styles.formbuttonwrap}>
           <TouchableOpacity
             style={styles.formbutton}
-            onPress={() =>
-              navigation.navigate('Expense Tracker', {
-                amount: amount,
-                description: description,
-                type: type,
-                balance: balance,
-              })
-            }>
+            onPress={() => {
+              if (amount != '' && description != '' && type != '') {
+                navigation.navigate('Expense Tracker', {
+                  amount: amount,
+                  description: description,
+                  type: type,
+                  datesday: new Date().getDate().toLocaleString(),
+                  datesmonth: new Date().getMonth().toLocaleString(),
+                  datesyear: new Date().getFullYear().toLocaleString(),
+                });
+              } else if (isNaN(amount)) {
+                alert('Please Enter Amount in Digits');
+              } else {
+                alert('Enter correct values');
+              }
+            }}>
             <Text style={styles.formbuttontext}> Save </Text>
           </TouchableOpacity>
 
