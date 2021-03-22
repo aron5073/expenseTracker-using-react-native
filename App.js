@@ -1,22 +1,18 @@
-// In App.js in a new project
-
+//importing components from react and react native
 import * as React from 'react';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   TextInput,
-  Button,
   Dimensions,
   TouchableOpacity,
-  KeyboardAvoidingView,
   Picker,
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 //components
 
@@ -24,6 +20,7 @@ import Buttons from './components/Button';
 
 const screens = Dimensions.get('window');
 
+//styling part of components
 const styles = StyleSheet.create({
   bodyContainer: {
     flex: 1,
@@ -40,17 +37,15 @@ const styles = StyleSheet.create({
   scrool: {
     borderColor: '#000',
 
-    //justifyContent: 'center',
     borderRadius: 20,
+    borderTopLeftRadius: 20,
+    borderTopStartRadius: 20,
     borderColor: 'black',
-    height: '80%',
+    height: '70%',
     width: '95%',
-    backgroundColor: 'lightgrey',
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    marginTop: '2.5%',
+    backgroundColor: 'lightblue',
 
-    // paddingTop: '5%',
+    marginTop: '2.5%',
   },
   topbar: {
     width: '100%',
@@ -91,8 +86,6 @@ const styles = StyleSheet.create({
   },
   formbuttontext: {
     color: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
     fontSize: 20,
     fontWeight: 'bold',
   },
@@ -106,6 +99,10 @@ const styles = StyleSheet.create({
   },
   cont: {
     alignItems: 'center',
+    backgroundColor: 'lightblue',
+  },
+  firsttext: {
+    justifyContent: 'space-around',
   },
 });
 
@@ -115,6 +112,7 @@ function HomeScreen({navigation, route}) {
   if (rem_balance == null) {
     rem_balance = 0;
   }
+  // taking parameters from the input screen to home screen
   if (route && route.params) {
     const {
       amount,
@@ -137,10 +135,8 @@ function HomeScreen({navigation, route}) {
 
     route.params = null;
     setList(newarramountay);
-    // if (list.length != newarramountay.length) {
-
-    // }
   }
+  //logical part behind the transcation shown in home screen
   console.log(list);
   let arramount = [];
   let arrtype = [];
@@ -167,22 +163,31 @@ function HomeScreen({navigation, route}) {
   return (
     <View style={styles.bodyContainer}>
       <View style={styles.listView}>
+        <View style={styles.sizebox}></View>
+        <Text style={styles.mainbalance}>Balance : {rem_balance}</Text>
         <View style={styles.scrool}>
           <View style={styles.cont}>
             <ScrollView>
               <View style={styles.sizebox}></View>
-              <Text style={styles.mainbalance}>Balance : {rem_balance}</Text>
-              <View style={styles.sizebox}></View>
               {list
                 ? list.reverse().map((item, index) => (
                     <View key={index}>
-                      <Text>Amount : {arramount[index]}</Text>
-                      <Text>Description : {item.description}</Text>
-                      <Text>Type : {item.type}</Text>
-                      <Text>
-                        Date : {item.datesday} - {item.datesmonth} -{' '}
-                        {item.datesyear}
+                      <Text style={styles.firsttext}>
+                        Date : {'   '}
+                        {item.datesday} - {item.datesmonth} -{item.datesyear}
+                        {'          '}
+                        Type : {item.type}
                       </Text>
+                      <Text>
+                        Amount : {'   '}
+                        {arramount[index]}
+                      </Text>
+                      <Text style={styles.firsttext}>
+                        Description :{'   '}
+                        {item.description}
+                      </Text>
+
+                      <Text></Text>
                       <View style={styles.sizebox}></View>
                     </View>
                   ))
@@ -194,6 +199,7 @@ function HomeScreen({navigation, route}) {
         </View>
 
         <View style={styles.buttonContainer}>
+          {/* navigation to the input screen  */}
           <Buttons
             onPress={() => {
               navigation.navigate('Add Transcations');
@@ -205,28 +211,23 @@ function HomeScreen({navigation, route}) {
   );
 }
 
+//Screen for taking input from users
 function DetailsScreen({navigation, route}) {
-  var date = new Date().getDate(); //Current Date
-  var month = new Date().getMonth() + 1; //Current Month
-  var year = new Date().getFullYear(); //Current Year
-  var datemonthyear = date + '-' + month + '-' + year;
-  datemonthyear.toLocaleString();
-
   const [amount, setAmount] = useState(0);
   const [description, setDescription] = useState(0);
   const [type, setType] = useState(0);
-  const [dates, setdate] = useState(0);
-  console.log(datemonthyear);
-  datemonthyear => setdate(datemonthyear);
+  // const [dates, setdate] = useState(0);
 
   return (
     <View style={styles.listView}>
       <View style={styles.scrool}>
+        {/* selecting the mode of transcation debit or credit */}
         <Picker onValueChange={value => setType(value)}>
           <Picker.Item label="Select a Option" value="0"></Picker.Item>
           <Picker.Item label="Debit" value="Debit"></Picker.Item>
           <Picker.Item label="Credit" value="Credit"></Picker.Item>
         </Picker>
+        {/* amount input box */}
         <Text style={styles.inputheading}>Amount</Text>
         <TextInput
           placeholder="Amount"
@@ -234,8 +235,8 @@ function DetailsScreen({navigation, route}) {
           keyboardType="numeric"
           onChangeText={value => setAmount(value)}
         />
+        {/* input box for description */}
         <Text style={styles.inputheading}>Description </Text>
-
         <TextInput
           multiline
           placeholder="Description"
@@ -245,6 +246,8 @@ function DetailsScreen({navigation, route}) {
         <View style={styles.formbuttonwrap}>
           <TouchableOpacity
             style={styles.formbutton}
+            // validation and navigation to home screen
+
             onPress={() => {
               if (amount != '' && description != '' && type != '') {
                 navigation.navigate('Expense Tracker', {
@@ -261,9 +264,10 @@ function DetailsScreen({navigation, route}) {
                 alert('Enter correct values');
               }
             }}>
+            {/* save button  */}
             <Text style={styles.formbuttontext}> Save </Text>
           </TouchableOpacity>
-
+          {/* clear button */}
           <TouchableOpacity style={styles.formbutton}>
             <Text style={styles.formbuttontext}> Clear </Text>
           </TouchableOpacity>
@@ -272,6 +276,8 @@ function DetailsScreen({navigation, route}) {
     </View>
   );
 }
+
+//stack navigation implementation
 
 const Stack = createStackNavigator();
 
